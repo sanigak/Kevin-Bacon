@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+import pymongo
 
 
 def movieURLSfromActor(URL):
@@ -56,7 +57,7 @@ def CleanData(string):
     stringy = stringy.strip(' []\'')
     return stringy
 
-def movieParser(URL):
+def movieCastParser(URL):
 
     homeurl = URL + 'fullcredits'
 
@@ -94,9 +95,7 @@ def movieParser(URL):
 
     return dict
 
-
-
-def Engine():
+def IneffectiveEngine():
 
     # All Movies Kevin Bacon was in
     initialMovieList = movieURLSfromActor('https://www.imdb.com/name/nm0000102/')
@@ -126,5 +125,81 @@ def Engine():
     for item in initialMovieList:
         print(item)
 
-Engine()
+def actorURLgenerator():
     
+    iterator = 1
+
+    returnList = []
+
+    while (iterator < 1500):
+
+        if (iterator < 10):
+            itStr = str(iterator)
+            URL = 'https://www.imdb.com/name/nm000000' + itStr + '/'
+        elif (iterator < 100):
+            itStr = str(iterator)
+            URL = 'https://www.imdb.com/name/nm00000' + itStr + '/'
+        elif (iterator < 1000):
+            itStr = str(iterator)
+            URL = 'https://www.imdb.com/name/nm0000' + itStr + '/'
+        elif (iterator < 10000):
+            itStr = str(iterator)
+            URL = 'https://www.imdb.com/name/nm000' + itStr + '/'
+
+        returnList.append(URL)
+
+        iterator += 1
+
+    return returnList
+
+def movieTitleParser(URL):
+
+     homeurl = URL
+
+     page = requests.get(homeurl)
+     soup = BeautifulSoup(page.text, 'html.parser')
+     list = soup.find_all('title')
+
+
+     stringy = list[0].contents
+     stringy = CleanData(stringy)
+     stringy = stringy.strip(' - IMDb')
+     return stringy
+
+def Engine():
+    
+    actorList = actorURLgenerator()
+    movieList = []
+
+    for URL in actorList:
+        print(URL)
+        moviesReturnedList = movieURLSfromActor(URL)
+        for item in moviesReturnedList:
+            movieList.append(item)
+
+    movieList = set(movieList)
+
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+
+    mydb = myclient["KevinBacon"]
+
+    mycol = mydb["Movies"]
+
+    lengthyBoi = len(movieList)
+    iterator = 1
+
+    for movie in movieList:
+        status = str(iterator) + "/" + str(lengthyBoi)
+        print(status)
+        cast = movieCastParser(URL)
+        title = movieTitleParser(URL)
+
+        dict = {"title": title,
+                "cast": cast}
+        mycol.insert_one(dict)
+
+        iterator +=1
+
+
+Engine()
+
