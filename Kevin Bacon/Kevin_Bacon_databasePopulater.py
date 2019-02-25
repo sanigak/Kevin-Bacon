@@ -133,7 +133,7 @@ def actorURLgenerator():
 
     returnList = []
 
-    while (iterator < 10):
+    while (iterator < 1000):
 
         if (iterator < 10):
             itStr = str(iterator)
@@ -165,7 +165,6 @@ def movieTitleParser(URL):
 
      stringy = list[0].contents
      stringy = CleanData(stringy)
-     stringy = stringy.strip(' - IMDb')
      return stringy
 
 def Engine():
@@ -177,7 +176,7 @@ def Engine():
         print(URL)
         moviesReturnedList = movieURLSfromActor(URL)
         for item in moviesReturnedList:
-            if "TV Series" not in item:
+            if "TV" not in item:
                 movieList.append(item)
 
     movieList = set(movieList)
