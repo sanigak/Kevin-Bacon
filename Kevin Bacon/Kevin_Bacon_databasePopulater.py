@@ -90,6 +90,8 @@ def movieCastParser(URL):
                     else:
                         role = stringy
                         iterator += 1
+                        actor = actor.replace(".","")
+                        role = role.replace(".","")
                         dict[actor] = role
 
 
@@ -131,7 +133,7 @@ def actorURLgenerator():
 
     returnList = []
 
-    while (iterator < 1500):
+    while (iterator < 10):
 
         if (iterator < 10):
             itStr = str(iterator)
@@ -175,7 +177,8 @@ def Engine():
         print(URL)
         moviesReturnedList = movieURLSfromActor(URL)
         for item in moviesReturnedList:
-            movieList.append(item)
+            if "TV Series" not in item:
+                movieList.append(item)
 
     movieList = set(movieList)
 
@@ -191,8 +194,8 @@ def Engine():
     for movie in movieList:
         status = str(iterator) + "/" + str(lengthyBoi)
         print(status)
-        cast = movieCastParser(URL)
-        title = movieTitleParser(URL)
+        cast = movieCastParser(movie)
+        title = movieTitleParser(movie)
 
         dict = {"title": title,
                 "cast": cast}
@@ -202,4 +205,3 @@ def Engine():
 
 
 Engine()
-
