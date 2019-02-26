@@ -20,7 +20,10 @@ def movieURLSfromActor(URL):
             if "flmg_act" in URL:
                 x = URL[:17]
                 x = "https://www.imdb.com" + x
-                outputList.append(x)
+                testTitle = movieTitleParser(x)
+                if "TV" not in testTitle:
+                    if "Video" not in testTitle:
+                        outputList.append(x)
         except:
             print(URL)
     
@@ -133,7 +136,7 @@ def actorURLgenerator():
 
     returnList = []
 
-    while (iterator < 1000):
+    while (iterator < 5):
 
         if (iterator < 10):
             itStr = str(iterator)
@@ -194,13 +197,18 @@ def Engine():
         status = str(iterator) + "/" + str(lengthyBoi)
         print(status)
         cast = movieCastParser(movie)
-        title = movieTitleParser(movie)
+        if(bool(cast)):
+            title = movieTitleParser(movie)
 
-        dict = {"title": title,
-                "cast": cast}
-        mycol.insert_one(dict)
+            dict = {"title": title,
+                    "cast": cast}
+            mycol.insert_one(dict)
 
         iterator +=1
 
+url = 'https://www.imdb.com/title/tt0272183/'
 
-Engine()
+cast = movieCastParser(url)
+
+print(cast)
+print(bool(cast))
