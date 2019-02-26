@@ -130,13 +130,13 @@ def IneffectiveEngine():
     for item in initialMovieList:
         print(item)
 
-def actorURLgenerator():
+def actorURLgenerator(depth):
     
     iterator = 1
 
     returnList = []
 
-    while (iterator < 5):
+    while (iterator < depth):
 
         if (iterator < 10):
             itStr = str(iterator)
@@ -206,4 +206,4 @@ def Engine():
 
         iterator +=1
 
-Engine()
+Engine(1000)
