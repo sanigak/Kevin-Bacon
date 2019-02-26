@@ -170,9 +170,9 @@ def movieTitleParser(URL):
      stringy = CleanData(stringy)
      return stringy
 
-def Engine():
+def Engine(depth):
     
-    actorList = actorURLgenerator()
+    actorList = actorURLgenerator(depth)
     movieList = []
 
     for URL in actorList:
