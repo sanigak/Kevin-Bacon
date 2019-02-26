@@ -206,9 +206,4 @@ def Engine():
 
         iterator +=1
 
-url = 'https://www.imdb.com/title/tt0272183/'
-
-cast = movieCastParser(url)
-
-print(cast)
-print(bool(cast))
+Engine()
