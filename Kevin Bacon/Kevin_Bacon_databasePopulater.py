@@ -20,10 +20,7 @@ def movieURLSfromActor(URL):
             if "flmg_act" in URL:
                 x = URL[:17]
                 x = "https://www.imdb.com" + x
-                testTitle = movieTitleParser(x)
-                if "TV" not in testTitle:
-                    if "Video" not in testTitle:
-                        outputList.append(x)
+                outputList.append(x)
         except:
             print(URL)
     
