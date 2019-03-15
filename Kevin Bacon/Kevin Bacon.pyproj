@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>9d45706e-8958-4436-a889-21ad855818b1</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>QueryMethods.py</StartupFile>
+    <StartupFile>Engine.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,10 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Kevin_Bacon_databasePopulater.py" />
-    <Compile Include="QueryMethods.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="testyBOI.py">
+    <Compile Include="Engine.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

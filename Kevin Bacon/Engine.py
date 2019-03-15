@@ -1,16 +1,17 @@
 import pymongo
 import datetime
 import re
-
+import random
 
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["KevinBacon"]
 col = mydb["MoviesCOPY"]
 
-solution = ""
-stillWorking = True
 
+solution = ""
+
+#Given an actor as input, returns the title of all the films they appeared in
 def moviesGivenActor(actor):
     outputList = []
     content = "cast." + actor
@@ -21,8 +22,7 @@ def moviesGivenActor(actor):
         outputList.append(title)
     return outputList
 
-
-
+#Given a film, returns a list of the cast of the film
 def castGivenMovie(movie):
     outputList = []
     finalList = []
@@ -36,35 +36,30 @@ def castGivenMovie(movie):
    
     return finalList
 
+#Runs game, given an actor and an initially blank solution
+#Recurvise
 def Engine(actor, solution):
 
     movies = moviesGivenActor(actor)
-    actorTEMP = ""
 
-    levelOfActors = []
+    solutiony = ""
+    solutiony += solution
 
     for movie in movies:
-        
+        print()
+        print()
+        print(actor)
+        print(movie)
+        print()
+        print()
         cast = castGivenMovie(movie)
         for subactor in cast:
-            interator = 0
-
+            print(subactor)
             if subactor == "Kevin Bacon":
-                solution += (subactor + " was in " + movie + " with Kevin Bacon")
-                global stillWorking
-                stillWorking = False
-                print(solution)
-                return solution
-            else:
-                levelOfActors.append(subactor)
+                solutiony += (subactor + " was in " + movie + " with Kevin Bacon")
+                print(solutiony)
+                return solutiony
 
-    levelOfActors = set(levelOfActors)
-    levelOfActors = list(levelOfActors)
-
-
-    return levelOfActors
+    random.shuffle(cast)
+    Engine(cast[0], solutiony)
         
-
-
-solutiony = Engine("Donald Trump", solution)
-

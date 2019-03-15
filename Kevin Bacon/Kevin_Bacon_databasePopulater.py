@@ -4,6 +4,8 @@ import re
 import pymongo
 
 
+
+#Given the URL of an actor's IMDB page, returns a list of the URLs of all the films they were in 
 def movieURLSfromActor(URL):
      
     homeurl = URL
@@ -28,6 +30,7 @@ def movieURLSfromActor(URL):
     finalList = set(outputList)
     return finalList  
 
+#Given the URL of an film's IMDB page, returns a list of the URLs of all the (significant) actors who were in it
 def actorsURLSfromMovie(URL):
 
     homeurl = URL + 'fullcredits/'
@@ -52,11 +55,7 @@ def actorsURLSfromMovie(URL):
     finalList = set(outputList)
     return finalList  
 
-def CleanData(string):
-    stringy = str(string)
-    stringy = stringy.strip(' []\'')
-    return stringy
-
+#Given the URL of a film's IMDB page, returns a dict as dict[name] = role
 def movieCastParser(URL):
 
     homeurl = URL + 'fullcredits'
@@ -97,36 +96,15 @@ def movieCastParser(URL):
 
     return dict
 
-def IneffectiveEngine():
+#Helper method for movieCastParser(URL) to remove formatting before appending
+#Given a string, returns a cleaned string
+def CleanData(string):
+    stringy = str(string)
+    stringy = stringy.strip(' []\'')
+    return stringy
 
-    # All Movies Kevin Bacon was in
-    initialMovieList = movieURLSfromActor('https://www.imdb.com/name/nm0000102/')
-
-    initialActorList = []
-    
-    iterator = 0
-
-    while iterator < 2:
-        for URL in initialMovieList:
-            actorReturnedList = actorsURLSfromMovie(URL)
-            for item in actorReturnedList:
-                initialActorList.append(item)
-                print(item)
-
-
-        for URL in initialActorList:
-            moviesReturnedList = movieURLSfromActor(URL)
-            for item in moviesReturnedList:
-                initialMovieList.append(item)
-                print(item)
-
-
-        iterator+=1
-
-    movieSet = set(initialMovieList)
-    for item in initialMovieList:
-        print(item)
-
+#Takes advantage of the formatting of all actor's IMDB pages
+#It seems a disproportionate number of famous people are in the first few thousand
 def actorURLgenerator(depth):
     
     iterator = 1
@@ -154,6 +132,7 @@ def actorURLgenerator(depth):
 
     return returnList
 
+#Given the URL of a film's IMDB page, returns film's title
 def movieTitleParser(URL):
 
      homeurl = URL
@@ -167,6 +146,7 @@ def movieTitleParser(URL):
      stringy = CleanData(stringy)
      return stringy
 
+ #Runs everything and populates database, given the number of actor's pages you want to hit.  ~1000 deemed optimal in testing
 def Engine(depth):
     
     actorList = actorURLgenerator(depth)
