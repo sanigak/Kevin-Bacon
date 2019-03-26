@@ -2,6 +2,7 @@ import pymongo
 import datetime
 import re
 import random
+import numpy
 
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -36,13 +37,17 @@ def castGivenMovie(movie):
    
     return finalList
 
+
+
 #Runs game, given an actor and an initially blank solution
 #Recurvise
-def Engine(actor):
+
+def Engine(actor, solution):
+
 
     movies = moviesGivenActor(actor)
 
-    
+
 
     for movie in movies:
         print()
@@ -51,16 +56,31 @@ def Engine(actor):
         print(movie)
         print()
         print()
-        cast = castGivenMovie(movie)
-        for subactor in cast:
-            print(subactor)
-            if subactor == "Kevin Bacon":
-                solutiony += (subactor + " was in " + movie + " with Kevin Bacon")
-                print(solutiony)
-                return solutiony
 
-    random.shuffle(cast)
-    Engine(cast[0], solutiony)
+        cast = castGivenMovie(movie)
+
+        if actor in cast:
+            cast.remove(actor)
+
+        for subactor in cast:
+
+                
+                
+            if subactor == "Kevin Bacon":
+                solution += (actor + " was in " + movie + " with " + subactor)
+                print(solution)
+                return solution
+
+    cast = 0
+
+    while cast <= 2:
+        randMovie = random.choice(movies)
+        randCast = castGivenMovie(randMovie)
+        cast = len(randCast)
+    if actor != randCast[0]:
+        solution += (actor + " was in " + randMovie + " with " + randCast[0] + ",  ")
+    Engine(randCast[0], solution)
 
 Engine("Willem Dafoe", "")
-        
+
+
