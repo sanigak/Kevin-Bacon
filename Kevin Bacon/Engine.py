@@ -38,12 +38,11 @@ def castGivenMovie(movie):
 
 #Runs game, given an actor and an initially blank solution
 #Recurvise
-def Engine(actor, solution):
+def Engine(actor):
 
     movies = moviesGivenActor(actor)
 
-    solutiony = ""
-    solutiony += solution
+    
 
     for movie in movies:
         print()
@@ -62,4 +61,6 @@ def Engine(actor, solution):
 
     random.shuffle(cast)
     Engine(cast[0], solutiony)
+
+Engine("Willem Dafoe", "")
         
