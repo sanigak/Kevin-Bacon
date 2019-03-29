@@ -1,0 +1,14 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<h1>Keith Saniga's Kevin Bacon</h1>
+<h2>A Keith Saniga Application</h2>
+
+<form action="/answer" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock %}
