@@ -5,10 +5,11 @@
 <h1>Keith Saniga's Kevin Bacon Application</h1>
 <h2>A Keith Saniga Application</h2>
 
-<form method="post">
+<form action="/ans" method="post">
     {% csrf_token %}
     {{ form }}
     <input type="submit" value="Submit">
 </form>
+
 
 {% endblock %}

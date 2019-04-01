@@ -73,7 +73,7 @@ def Engine(actor, solution):
 
     cast = 0
 
-    while cast <= 2:
+    while cast <= 3:
         randMovie = random.choice(movies)
         randCast = castGivenMovie(randMovie)
         cast = len(randCast)
@@ -81,6 +81,6 @@ def Engine(actor, solution):
         solution += (actor + " was in " + randMovie + " with " + randCast[0] + ",  ")
     Engine(randCast[0], solution)
 
-Engine("Willem Dafoe", "")
+Engine("Marlon Brando", "")
 
 

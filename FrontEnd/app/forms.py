@@ -17,5 +17,5 @@ class BootstrapAuthenticationForm(AuthenticationForm):
                                    'class': 'form-control',
                                    'placeholder':'Password'}))
 
-class NameForm(forms.Form):
-    your_name = forms.CharField(label='Your name', max_length=100)
+class ActorForm(forms.Form):
+    actor = forms.CharField(label='Actor to link:', max_length=10000)
