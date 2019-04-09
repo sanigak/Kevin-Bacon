@@ -39,7 +39,7 @@ def ans(request):
             actor = form.cleaned_data['actor']
             answer = Engine(actor, "")
 
-            return render(request, 'app/ans.html', {'ans': answer})
+            return render(request, 'app/ans.html', {'ans': answer, 'actor':actor} )
     return render(
         request,
         'app/ans.html',

@@ -50,12 +50,6 @@ def Engine(actor, solution):
 
 
     for movie in movies:
-        print()
-        print()
-        print(actor)
-        print(movie)
-        print()
-        print()
 
         cast = castGivenMovie(movie)
 
@@ -65,10 +59,8 @@ def Engine(actor, solution):
         for subactor in cast:
 
                 
-                
             if subactor == "Kevin Bacon":
                 solution += (actor + " was in " + movie + " with " + subactor)
-                print(solution)
                 return solution
 
     cast = 0
