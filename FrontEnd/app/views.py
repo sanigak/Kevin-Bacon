@@ -37,6 +37,11 @@ def ans(request):
         if form.is_valid():
             
             actor = form.cleaned_data['actor']
+            actor = actor.replace("\"","")
+            actor = actor.replace("\'","")
+            actor = actor.replace(";","")
+            actor = actor.replace("(","")
+            actor = actor.replace(")","")
             answer = Engine(actor)
 
 
