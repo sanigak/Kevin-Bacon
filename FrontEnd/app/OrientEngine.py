@@ -54,6 +54,9 @@ def Engine(target):
     if (hasActor(target) == False):
         return("Our database does not include that actor.  Sorry!")
 
+    if (target == 'Kevin Bacon'):
+        return("I bet you thought this would be a fail-case, didn\'t you?")
+
     targetVertex = returnTargetVertex(target)
 
     path = generatePath(targetVertex)
