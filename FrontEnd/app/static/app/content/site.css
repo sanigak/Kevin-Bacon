@@ -5,13 +5,14 @@ body {
 }
 
 h1 {
-    color: palevioletred;
-    font-family: 'Comic Sans MS'
+    color: navy;
+    font-family: Dubai
 
 }
 
 h2{
-
+    font-size : medium;
+    font-family: impact;
     color: forestgreen
 }
 

@@ -9,7 +9,7 @@ client.db_open("KevinBaconTEST", "root", "tiger")
 
 
 baconVertex = "#33:33588"
-hanksVertex = "#33:34876"
+
 
 def returnTargetVertex(actor):
     ans = client.query("select @rid from ActorNode where actor = " + "\'" + actor + "\'")
@@ -40,9 +40,19 @@ def parseVertex(rid):
             }
         return tempDict
 
+def hasActor(actor):
+    ans = client.query("select from ActorNode where actor = \'" + actor + "\'")
+    if not ans:
+        return False
+    else:
+        return True
+
 def Engine(target):
     
     solution = ""
+
+    if (hasActor(target) == False):
+        return("Our database does not include that actor.  Sorry!")
 
     targetVertex = returnTargetVertex(target)
 
@@ -67,9 +77,10 @@ def Engine(target):
         role = item['role']
         if (actor == 'Kevin Bacon'):
             addition = actor + " played " + role + " in " + movie + "!"
+        elif (actor == target):
+            addition = actor + " played " + role + " in " + movie + ", \n"
+
         else:
             addition = actor + " played " + role + " in " + movie + ", \n"
         solution += addition
     return solution
-
-print(Engine("Donald Trump"))
