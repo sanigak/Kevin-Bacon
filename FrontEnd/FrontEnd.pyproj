@@ -64,6 +64,7 @@
     <Content Include="app\static\app\content\images\bacon.jpg" />
     <Content Include="app\static\app\content\images\bacon_wide.jpg" />
     <Content Include="app\templates\app\ans.html" />
+    <Content Include="baconCOMPLETE.gz" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />
