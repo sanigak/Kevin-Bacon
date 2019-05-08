@@ -7,10 +7,11 @@ session_id = client.connect("root", "tiger")
 client.db_open("KevinBaconTEST", "root", "tiger")
 
 
-
+#Vertex of an arbitrary Kevin Bacon role
 baconVertex = "#33:33588"
 
 
+#Takes an actor name in, returns the vertex of an arbitrary one of their roles
 def returnTargetVertex(actor):
     ans = client.query("select @rid from ActorNode where actor = " + "\'" + actor + "\'")
     for item in ans:
@@ -18,6 +19,7 @@ def returnTargetVertex(actor):
         rid = data['rid']
         return rid
 
+#Uses Orient's shortestpath function to find the path as a list of role vertices
 def generatePath(rid):
     outputList = []
     ans = client.query("select shortestpath(" + str(rid) + "," + str(baconVertex) + ")")
@@ -27,6 +29,7 @@ def generatePath(rid):
             outputList.append(vertex)
     return outputList
 
+#Given a vertex, returns the actor, character, and movie
 def parseVertex(rid):
     ans = client.query("select from ActorNode where @rid = " + rid)
     for item in ans:
@@ -40,6 +43,7 @@ def parseVertex(rid):
             }
         return tempDict
 
+#returns whether it is true or false that a certain actor is listed in the DB
 def hasActor(actor):
     ans = client.query("select from ActorNode where actor = \'" + actor + "\'")
     if not ans:
@@ -47,6 +51,7 @@ def hasActor(actor):
     else:
         return True
 
+#Calls all necessary functions in order to generate the final output given an actor's name in
 def Engine(target):
     
     solution = ""
